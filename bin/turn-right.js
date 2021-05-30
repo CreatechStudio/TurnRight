@@ -1,10 +1,10 @@
 class TurnRight extends HTMLElement {
     get url() {
-        return this.formatUrl(this.getAttribute("url"));
+        return this._formatUrl(this.getAttribute("url"));
     }
 
     set url(url) {
-        return this.setAttribute("url", this.formatUrl(url));
+        return this.setAttribute("url", this.__formatUrl(url));
     }
 
     get wait() {
@@ -15,23 +15,40 @@ class TurnRight extends HTMLElement {
         this.setAttribute("wait", wait);
     }
 
-    ifWait() {
-        if (typeof this.wait === "boolean") {
-            return this.wait;
-        } else {
-            return this.wait.toString() === "true";
-        }
+    get pass() {
+        return this.getAttribute("pass");
     }
+
+    set pass(pass) {
+        this.setAttribute("pass", pass);
+    }
+
+
 
     constructor() {
         super();
-    }
-
-    formatUrl(url) {
-        if (!url.startsWith("http://") && !url.startsWith("https://")) {
-            return "https://" + url;
+        this._ifWait = function () {
+            const wait = this.wait;
+            if (typeof wait === "boolean") {
+                return wait;
+            } else {
+                return wait.toString() === "true";
+            }
         }
-        return url;
+        this._ifPass = function () {
+            const pass = this.pass;
+            if (typeof pass === "boolean") {
+                return pass;
+            } else {
+                return pass.toString() === "true";
+            }
+        }
+        this._formatUrl = function (url) {
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                return "https://" + url;
+            }
+            return url;
+        }
     }
 
     turnRight() {
@@ -40,7 +57,7 @@ class TurnRight extends HTMLElement {
 }
 function turnRight(index = 0) {
     const tr = document.getElementsByTagName("turn-right")[index];
-    if (tr != null) {
+    if (tr != null && !tr._ifPass()) {
         tr.turnRight();
     }
 }
@@ -49,7 +66,7 @@ window.onload = function () {
     const trs = document.getElementsByTagName("turn-right");
     for (let i = 0; i < trs.length; i++) {
         const tr = trs[i];
-        if (!tr.ifWait()) {
+        if (!tr._ifWait() && !tr._ifPass()) {
             tr.turnRight();
             break;
         }

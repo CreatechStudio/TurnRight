@@ -45,13 +45,13 @@
 
          See `demo-immediately.html` or visit [online demo page](https://www.atatc.net/turnright/demo-immediately.html) for the actual effect.
 
-         To redirect immediately, having loaded the page, specify the property `wait` as `false`.
+         To redirect immediately, having loaded the page, specify property `wait` as `false`.
 
          ```html
          <turn-right url="(e.g) https://www.atatc.net" wait=false></turn-right>
          ```
 
-         The property `wait` can be either boolean or boolean-string. It's set as `true` defaultly.
+         Property `wait` can be either boolean or boolean-string. It's set as `true` defaultly.
 
          ***However, in this case, only the first `<turn-right>` in the entire page will be triggered.***
 
@@ -59,7 +59,7 @@
 
          See `demo-afterclicking.html` or visit [online demo page](https://www.atatc.net/turnright/demo-afterclicking.html) for the actual effect.
 
-         To redirect after an action, set an `id` and optionally specify the property `wait` as `true`.
+         To redirect after an action, set an `id` and optionally specify property `wait` as `true`.
 
          ```html
          <turn-right id="tr_a" url="(e.g) https://www.atatc.net"></turn-right>
@@ -78,5 +78,15 @@
          tr_a.turnRight();
          ```
 
-         
+   3. ### Pass
+
+      *Introduced in version 0.0.2.*
+
+      If you don't want a tag to be activated, set property `pass` as `true`.
+
+      ```html
+      <turn-right url="(e.g) https://www.atatc.net" pass=true></turn-right>
+      ```
+
+      Property `pass` can be either boolean or boolean-string. It's set as `false` defaultly.
 
