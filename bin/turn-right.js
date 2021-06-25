@@ -4,7 +4,7 @@ class TurnRight extends HTMLElement {
     }
 
     set url(url) {
-        return this.setAttribute("url", this.__formatUrl(url));
+        return this.setAttribute("url", this._formatUrl(url));
     }
 
     get wait() {
@@ -29,6 +29,7 @@ class TurnRight extends HTMLElement {
         super();
         this._ifWait = function () {
             const wait = this.wait;
+            if (wait == null) return true;
             if (typeof wait === "boolean") {
                 return wait;
             } else {
@@ -37,6 +38,7 @@ class TurnRight extends HTMLElement {
         }
         this._ifPass = function () {
             const pass = this.pass;
+            if (pass == null) return false;
             if (typeof pass === "boolean") {
                 return pass;
             } else {
